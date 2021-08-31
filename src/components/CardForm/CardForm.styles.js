@@ -8,7 +8,7 @@ export default makeStyles(() => ({
     paddingRight: '5%',
     paddingBottom: '4%',
     borderRadius: '8px',
-
+    width: '100%'
   },
   submitBtn: {
     margin: 'auto',

@@ -28,7 +28,7 @@ const CardForm = (props) => {
             name='number'
             label='Card Number'
             variant='outlined'
-            inputProps={{ type:'tel', maxLength: 16, pattern: "[0-9]{4} [0-9]{4} [0-9]{4} [0-9]{4}" }}
+            inputProps={{ type:'tel', maxLength: 16 }}
           />
         </Box>
         <Box padding='2%'>

@@ -45,7 +45,7 @@ const Card = () => {
   }
 
   return (
-    <Box className={classes.root}>
+    <Box className={classes.cardContainer}>
       <CardDisplay
         cardDetails={cardDetails}
         fieldToFocus={fieldToFocus}
