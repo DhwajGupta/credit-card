@@ -12,7 +12,7 @@ const FrontDisplay = (props) => {
   const { cardDetails, fieldToFocus, handleCardType } = props
   const [cardNumberToDisplay, setCardNumberToDisplay] = useState('################')
   const [expiryDate, setExpiryDate] = useState('MM/YY')
-  const { number: cardNumber, name: cardOwner, cvv, month, year, type: cardType } = cardDetails
+  const { number: cardNumber, name: cardOwner, month, year, type: cardType } = cardDetails
 
   const getFormattedCardNumber = () => {
     const lengthOfCardNumberInput = cardNumber.length

@@ -6,7 +6,7 @@ import useStyles from './CardBackDisplay.styles'
 import { CARD_TYPE_TO_IMAGE_MAPPER } from '../../utils/constants'
 
 const BackDisplay = (props) => {
-  const { cardDetails, fieldToFocus } = props
+  const { cardDetails } = props
   const classes = useStyles()
   return (
     <Box>
@@ -16,7 +16,7 @@ const BackDisplay = (props) => {
           CVV
         </Typography>
         <Box className={classes.whiteStrip}>
-          <Typography align='right' className={`${classes.cvv} ${classes.cvvText}`} color='#000'>
+          <Typography align='right' className={`${classes.cvv} ${classes.cvvText}`}>
             {cardDetails.cvv}
           </Typography>
         </Box>

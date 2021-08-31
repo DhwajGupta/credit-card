@@ -3,17 +3,26 @@ import PropTypes from 'prop-types'
 import Box from '@material-ui/core/Box'
 import { Button, FormControl, Grid, InputLabel, MenuItem, Select, TextField } from '@material-ui/core'
 import { getMonthList, getNextTenYearsList } from '../../utils/helper'
-import { DEFAULT_CVC_LENGTH } from '../../utils/constants'
+import { DEFAULT_CVC_LENGTH, REGEX_FOR_NUMBER } from '../../utils/constants'
 import useStyles from './CardForm.styles'
 
 const CardForm = (props) => {
   const {
-    handleFieldValueChange, handleFieldFocus, handleSubmit
+    handleFieldValueChange, handleFieldFocus, handleSubmit, cardDetails
   } = props
 
   const classes = useStyles()
   const monthList = useMemo(() => getMonthList(), [])
   const yearsList = useMemo(() => getNextTenYearsList(), [])
+
+  const handleValidationForNumericFields = (e) => {
+    const { target: { name, value } } = e
+    if (REGEX_FOR_NUMBER.test(value)) {
+      handleFieldValueChange(e)
+    } else {
+      e.target.value = cardDetails[name]
+    }
+  }
 
   return (
     <Box className={classes.cardForm}>
@@ -21,7 +30,7 @@ const CardForm = (props) => {
         <Box padding='2%'>
           <TextField
             type='tel'
-            onChange={handleFieldValueChange}
+            onChange={handleValidationForNumericFields}
             onFocus={handleFieldFocus}
             onBlur={(e) => handleFieldFocus(e, true)}
             fullWidth
@@ -55,11 +64,12 @@ const CardForm = (props) => {
                   fullWidth
                   variant='outlined'
                   label='Month'
+                  defaultValue=''
                   onChange={handleFieldValueChange}
                   onFocus={handleFieldFocus}
                   onBlur={(e) => handleFieldFocus(e, true)}
                 >
-                  <MenuItem value={'1'} disabled>Month</MenuItem>
+                  <MenuItem value={''} disabled>Month</MenuItem>
                   {monthList?.length && monthList.map((month) => (
                     <MenuItem key={month.label} value={month.value}>{month.label}</MenuItem>
                   ))}
@@ -76,6 +86,7 @@ const CardForm = (props) => {
                   fullWidth
                   variant='outlined'
                   label='Year'
+                  defaultValue=''
                   onChange={handleFieldValueChange}
                   onFocus={handleFieldFocus}
                   onBlur={(e) => handleFieldFocus(e, true)}
@@ -90,7 +101,7 @@ const CardForm = (props) => {
             <Grid item xs={4}>
               <TextField
                 type='tel'
-                onChange={handleFieldValueChange}
+                onChange={handleValidationForNumericFields}
                 onFocus={handleFieldFocus}
                 onBlur={(e) => handleFieldFocus(e, true)}
                 fullWidth
@@ -115,7 +126,8 @@ const CardForm = (props) => {
 CardForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   handleFieldValueChange: PropTypes.func.isRequired,
-  handleFieldFocus: PropTypes.func.isRequired
+  handleFieldFocus: PropTypes.func.isRequired,
+  cardDetails: PropTypes.object.isRequired
 }
 
 export default CardForm
