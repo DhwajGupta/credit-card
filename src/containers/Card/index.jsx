@@ -3,6 +3,7 @@ import CardDisplay from '../../components/CardDisplay/index'
 import CardForm from '../../components/CardForm/index'
 import Box from '@material-ui/core/Box'
 import useStyles from './Card.styles'
+import { DEFAULT_CARD_TYPE } from '../../utils/constants'
 
 const Card = () => {
   const classes = useStyles()
@@ -13,12 +14,13 @@ const Card = () => {
     year: '',
     name: '',
     number: '',
-    type: 'JCB'
+    type: DEFAULT_CARD_TYPE
   })
 
-  const handleFieldFocus = (e) => {
-    const { target: { name: fieldName } } = e
-    setFieldToFocus(fieldName)
+  const handleFieldFocus = (e, reset = false) => {
+    const { target: { name: fieldName, id: fieldId } } = e
+    if (reset) setFieldToFocus(null)
+    else setFieldToFocus(fieldName || fieldId)
   }
 
   const handleCardType = (type) => {
@@ -39,6 +41,7 @@ const Card = () => {
 
   const handleSubmitCardDetails = (e) => {
     e.preventDefault()
+    setFieldToFocus(null)
   }
 
   return (

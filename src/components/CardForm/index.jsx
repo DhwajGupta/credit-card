@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import Box from '@material-ui/core/Box'
 import { Button, FormControl, Grid, InputLabel, MenuItem, Select, TextField } from '@material-ui/core'
 import { getMonthList, getNextTenYearsList } from '../../utils/helper'
+import { DEFAULT_CVC_LENGTH } from '../../utils/constants'
 import useStyles from './CardForm.styles'
 
 const CardForm = (props) => {
@@ -19,19 +20,22 @@ const CardForm = (props) => {
       <form onSubmit={handleSubmit} autoComplete='off'>
         <Box padding='2%'>
           <TextField
-            type='number'
+            type='tel'
             onChange={handleFieldValueChange}
             onFocus={handleFieldFocus}
+            onBlur={(e) => handleFieldFocus(e, true)}
             fullWidth
             name='number'
             label='Card Number'
             variant='outlined'
+            inputProps={{ type:'tel', maxLength: 16, pattern: "[0-9]{4} [0-9]{4} [0-9]{4} [0-9]{4}" }}
           />
         </Box>
         <Box padding='2%'>
           <TextField
             onChange={handleFieldValueChange}
             onFocus={handleFieldFocus}
+            onBlur={(e) => handleFieldFocus(e, true)}
             fullWidth 
             name='name'
             label='Card Name'
@@ -47,11 +51,13 @@ const CardForm = (props) => {
                 <Select
                   labelId='demo-simple-select-label'
                   name='month'
+                  id='month'
                   fullWidth
                   variant='outlined'
                   label='Month'
                   onChange={handleFieldValueChange}
                   onFocus={handleFieldFocus}
+                  onBlur={(e) => handleFieldFocus(e, true)}
                 >
                   <MenuItem value={'1'} disabled>Month</MenuItem>
                   {monthList?.length && monthList.map((month) => (
@@ -66,11 +72,13 @@ const CardForm = (props) => {
                 <Select
                   labelId='demo-simple-select-label'
                   name='year'
+                  id='year'
                   fullWidth
                   variant='outlined'
                   label='Year'
                   onChange={handleFieldValueChange}
                   onFocus={handleFieldFocus}
+                  onBlur={(e) => handleFieldFocus(e, true)}
                 >
                   <MenuItem value={''} disabled>Year</MenuItem>
                   {yearsList?.length && yearsList.map((year) => (
@@ -84,17 +92,18 @@ const CardForm = (props) => {
                 type='tel'
                 onChange={handleFieldValueChange}
                 onFocus={handleFieldFocus}
+                onBlur={(e) => handleFieldFocus(e, true)}
                 fullWidth
                 name='cvv'
                 label='CVV'
                 variant='outlined' 
-                inputProps={{ maxLength: 4, max: 9999 }}
+                inputProps={{ maxLength: DEFAULT_CVC_LENGTH }}
               />
             </Grid>
           </Grid>
         </Box>
         <Box padding='2%' alignItems='center' width='100%'>
-          <Button className={classes.submitBtn} variant='contained' color='primary' size='large'>
+          <Button className={classes.submitBtn} type='submit' variant='contained' color='primary' size='large'>
             Submit
           </Button>
         </Box>
